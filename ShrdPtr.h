@@ -9,12 +9,10 @@ private:
 public:
     ShrdPtr(T* p = nullptr) : ptr(p), referenceCount(new size_t(1)) {}
 
-
     ShrdPtr(const ShrdPtr& other) : ptr(other.ptr), referenceCount(other.referenceCount) {
         ++(*referenceCount);
     }
 
-   
     ShrdPtr(UnqPtr<T>&& uptr) : ptr(uptr.release()), referenceCount(new size_t(1)) {}
 
     ~ShrdPtr() {
@@ -24,12 +22,10 @@ public:
         }
     }
 
-   
     size_t useCount() {
         return *referenceCount;
     }
 
-  
     bool isNull() const {
         return ptr == nullptr;
     }
